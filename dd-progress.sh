@@ -15,8 +15,11 @@ while(true)
 do
   for element in "${array[@]}"
   do
-    command="kill -USR1  $element"
-    eval $command
+    #command="kill -USR1  $element"
+    #eval $command
+    #echo "sent signal to $element"
+    #possible improvement
+    out=$(kill -USR1 $element);
     echo "sent signal to $element"
   done
   #stops dos effect
