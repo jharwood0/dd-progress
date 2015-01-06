@@ -6,15 +6,15 @@ id=$(pgrep -d ',' '^dd$')
 #split the string into array
 IFS=',' read -a array <<< "$id"
 
-echo "Starting infinite loop"
-echo "ctrl-C to cancel"
-
 #check if there are any processes...
 if [ ${#array[@]} -eq 0 ];
 then
-	echo "No Processess found, quiting!";
-	exit
+    	echo "No Processess found, quiting!";
+        exit
 fi
+
+echo "Starting infinite loop"
+echo "ctrl-C to cancel"
 
 #forearch element in the array, send a USR1 signal to the process
 #loop continuously
