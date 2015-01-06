@@ -9,17 +9,27 @@ IFS=',' read -a array <<< "$id"
 echo "Starting infinite loop"
 echo "ctrl-C to cancel"
 
+#check if there are any processes...
+if [ ${#array[@]} -eq 0 ];
+then
+	echo "No Processess found, quiting!";
+	exit
+fi
+
 #forearch element in the array, send a USR1 signal to the process
 #loop continuously
 while(true)
 do
   for element in "${array[@]}"
   do
-    #command="kill -USR1  $element"
-    #eval $command
-    #echo "sent signal to $element"
-    #possible improvement
+    #send the signal
     out=$(kill -USR1 $element);
+    if [ $? !=  0 ]
+    then
+      echo "Process has ended!"
+      echo "Bye!"
+      exit
+    fi
     echo "sent signal to $element"
   done
   #stops dos effect
